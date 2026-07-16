@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model LandParcel {
+  id                       String   @id @default(uuid())
+  parcelId                 String   @unique @map("parcel_id")
+  parcelIdBytes32          String   @map("parcel_id_bytes32")
+  ownerWallet              String   @map("owner_wallet")
+  gpsLatitude              Float    @map("gps_latitude")
+  gpsLongitude             Float    @map("gps_longitude")
+  gpsHash                  String   @map("gps_hash")
+  areaSquareMeters         Float?   @map("area_square_meters")
+  address                  String?
+  city                     String?
+  state                    String?
+  country                  String?
+  metadataIpfsCid          String   @map("metadata_ipfs_cid")
+  metadataHash             String   @map("metadata_hash")
+  imageCids                String[] @map("image_cids")
+  documentCids             String[] @map("document_cids")
+  registrationTxHash       String?  @map("registration_tx_hash")
+  registrationBlockNumber  Int?     @map("registration_block_number")
+  lastTransferTxHash       String?  @map("last_transfer_tx_hash")
+  createdAt                DateTime @default(now()) @map("created_at")
+  updatedAt                DateTime @updatedAt @map("updated_at")
+
+  transfers TransferRecord[]
+
+  @@index([ownerWallet])
+  @@map("land_parcels")
+}
+
+model TransferRecord {
+  id              String     @id @default(uuid())
+  landParcelId    String     @map("land_parcel_id")
+  parcelId        String     @map("parcel_id")
+  fromWallet      String     @map("from_wallet")
+  toWallet        String     @map("to_wallet")
+  transferTxHash  String     @map("transfer_tx_hash")
+  transferHash    String?    @map("transfer_hash")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  landParcel      LandParcel @relation(fields: [landParcelId], references: [id])
+
+  @@index([parcelId])
+  @@map("transfer_records")
+}
