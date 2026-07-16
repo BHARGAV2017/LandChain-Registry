@@ -21,8 +21,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const API = process.env.API_URL || "http://localhost:3001";
 const RPC = process.env.BLOCKCHAIN_RPC_URL || "http://127.0.0.1:8545";
 
-// Hardhat default Account #0 private key (local demo only)
+# Hardhat default Account #0 private key (local demo only).
+# For Amoy: export OWNER_KEY=0xYourDeployerKey
 const OWNER_KEY =
+  process.env.OWNER_KEY ||
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 const BUYER_ADDRESS = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
 

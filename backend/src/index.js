@@ -14,7 +14,30 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" }));
+function corsOrigins() {
+  const raw =
+    process.env.FRONTEND_URLS ||
+    process.env.FRONTEND_URL ||
+    "http://localhost:5173";
+  return raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+const allowedOrigins = corsOrigins();
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Allow non-browser clients (no Origin) and listed frontends
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes("*")) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+  })
+);
 app.use(express.json());
 
 app.get("/health", async (_req, res) => {
@@ -33,7 +56,8 @@ app.get("/api/config", (_req, res) => {
   if (!deployment) {
     return res.status(503).json({
       success: false,
-      message: "Contract not deployed. Run: cd contracts && npm run deploy:local",
+      message:
+        "Contract not configured. Set CONTRACT_ADDRESS (+ shared/abi.json) or run deploy.",
     });
   }
   res.json({
@@ -43,6 +67,9 @@ app.get("/api/config", (_req, res) => {
       chainId: deployment.chainId,
       abi: deployment.abi,
       rpcUrl: process.env.BLOCKCHAIN_RPC_URL || "http://127.0.0.1:8545",
+      chainName: process.env.CHAIN_NAME || undefined,
+      currencySymbol: process.env.CURRENCY_SYMBOL || undefined,
+      blockExplorerUrl: process.env.BLOCK_EXPLORER_URL || undefined,
     },
   });
 });
@@ -52,11 +79,11 @@ app.use("/api/land-parcels", landParcelsRoutes);
 fs.mkdirSync(path.join(__dirname, "../uploads"), { recursive: true });
 
 app.listen(PORT, () => {
-  console.log(`Land Registry API running on http://localhost:${PORT}`);
+  console.log(`Land Registry API running on port ${PORT}`);
   const dep = blockchain.getDeployment();
   if (dep) {
-    console.log(`Contract: ${dep.contractAddress}`);
+    console.log(`Contract: ${dep.contractAddress} (chain ${dep.chainId})`);
   } else {
-    console.log("Warning: shared/deployment.json not found — deploy contract first");
+    console.log("Warning: contract not configured");
   }
 });

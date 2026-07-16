@@ -33,8 +33,16 @@ async function ensureNetwork() {
           params: [
             {
               chainId: toBeHex(Number(config.chainId)),
-              chainName: "Hardhat Local",
+              chainName: config.chainName || `Chain ${config.chainId}`,
               rpcUrls: [config.rpcUrl],
+              nativeCurrency: {
+                name: config.currencySymbol || "ETH",
+                symbol: config.currencySymbol || "ETH",
+                decimals: 18,
+              },
+              blockExplorerUrls: config.blockExplorerUrl
+                ? [config.blockExplorerUrl]
+                : undefined,
             },
           ],
         });

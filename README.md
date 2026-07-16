@@ -56,6 +56,7 @@ This blockchain-based land registry system provides:
 | **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** | Directory map — what each file/module does |
 | **[MARKET_EVIDENCE.md](./MARKET_EVIDENCE.md)** | Global land registry problems — cited sources for fact-checking |
 | **[DEMO_SETUP.md](./DEMO_SETUP.md)** | Run the live demo locally (Home → Sign In → seeded parcels) |
+| **[PUBLIC_DEPLOY.md](./PUBLIC_DEPLOY.md)** | Free public hosting: Netlify + Render + Neon + Pinata + Polygon Amoy |
 | **[demo-data/](./demo-data/)** | Sample deeds, images, presentation script |
 
 ### Learning (internal — not for client handoff)

@@ -9,7 +9,34 @@ let deployment = null;
 let provider = null;
 let contract = null;
 
+function loadAbi() {
+  const abiPath = path.join(__dirname, "../../../shared/abi.json");
+  if (fs.existsSync(abiPath)) {
+    return JSON.parse(fs.readFileSync(abiPath, "utf8"));
+  }
+  return null;
+}
+
 function loadDeployment() {
+  // Production: CONTRACT_ADDRESS (+ optional CHAIN_ID) with shared/abi.json
+  if (process.env.CONTRACT_ADDRESS) {
+    const abi = loadAbi();
+    if (!abi) {
+      console.warn("CONTRACT_ADDRESS set but shared/abi.json missing");
+      return null;
+    }
+    const next = {
+      contractAddress: process.env.CONTRACT_ADDRESS,
+      chainId: process.env.CHAIN_ID || "80002",
+      abi,
+    };
+    if (!deployment || deployment.contractAddress !== next.contractAddress) {
+      deployment = next;
+      contract = null;
+    }
+    return deployment;
+  }
+
   const deploymentPath = path.join(__dirname, "../../../shared/deployment.json");
   if (!fs.existsSync(deploymentPath)) {
     return null;

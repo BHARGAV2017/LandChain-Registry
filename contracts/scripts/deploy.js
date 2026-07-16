@@ -30,6 +30,13 @@ async function main() {
   );
 
   console.log("Saved deployment.json to shared/");
+
+  // Keep committed ABI in sync for cloud deploys (CONTRACT_ADDRESS env)
+  fs.writeFileSync(
+    path.join(sharedDir, "abi.json"),
+    JSON.stringify(artifact.abi, null, 2)
+  );
+  console.log("Updated shared/abi.json");
 }
 
 main().catch((error) => {

@@ -1,0 +1,35 @@
+# Render Blueprint (optional). You can also create the Web Service in the dashboard.
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: landchain-registry-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate
+    startCommand: npx prisma db push && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATABASE_URL
+        sync: false
+      - key: PINATA_JWT
+        sync: false
+      - key: PINATA_GATEWAY
+        sync: false
+      - key: BLOCKCHAIN_RPC_URL
+        value: https://rpc-amoy.polygon.technology
+      - key: CONTRACT_ADDRESS
+        sync: false
+      - key: CHAIN_ID
+        value: "80002"
+      - key: CHAIN_NAME
+        value: Polygon Amoy
+      - key: CURRENCY_SYMBOL
+        value: POL
+      - key: BLOCK_EXPLORER_URL
+        value: https://amoy.polygonscan.com
+      - key: FRONTEND_URLS
+        sync: false
