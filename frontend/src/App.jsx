@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Verify from "./pages/Verify";
+import Contact from "./pages/Contact";
 
 function shortAddress(addr) {
   if (!addr) return "";
@@ -40,6 +41,7 @@ export default function App() {
                 Home
               </NavLink>
               <NavLink to="/verify">Verify</NavLink>
+              <NavLink to="/contact">Contact us</NavLink>
             </div>
             <div className="wallet-bar">
               <button type="button" className="btn" onClick={handleSignIn}>
@@ -56,6 +58,7 @@ export default function App() {
               <NavLink to="/dashboard">Dashboard</NavLink>
               <NavLink to="/register">Register</NavLink>
               <NavLink to="/verify">Verify</NavLink>
+              <NavLink to="/contact">Contact us</NavLink>
             </div>
             <div className="wallet-bar">
               {address ? (
@@ -88,6 +91,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/verify/:parcelId" element={<Verify />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
     </div>
