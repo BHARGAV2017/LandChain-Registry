@@ -40,3 +40,6 @@ npm-debug.log*
 .idea/
 .vscode/
 *.swp
+
+# Internal notes (keep local only — not for public GitHub)
+learning-docs/

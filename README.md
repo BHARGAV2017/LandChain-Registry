@@ -59,10 +59,6 @@ This blockchain-based land registry system provides:
 | **[PUBLIC_DEPLOY.md](./PUBLIC_DEPLOY.md)** | Free public hosting: Netlify + Render + Neon + Pinata + Polygon Amoy |
 | **[demo-data/](./demo-data/)** | Sample deeds, images, presentation script |
 
-### Learning (internal — not for client handoff)
-
-See **[learning-docs/](./learning-docs/)** for deep dives: smart contracts, blockchain security, post-quantum crypto, glossary, business model, and implementation notes.
-
 ## 🛠 Technology Stack
 
 ### Frontend
@@ -292,7 +288,7 @@ Contributions are welcome! Please read the contributing guidelines before submit
 
 For questions, issues, or support:
 - Open an issue on GitHub
-- Check [DEMO_SETUP.md](./DEMO_SETUP.md) and [learning-docs/](./learning-docs/)
+- Check [DEMO_SETUP.md](./DEMO_SETUP.md) and [PUBLIC_DEPLOY.md](./PUBLIC_DEPLOY.md)
 
 ## 🙏 Acknowledgments
 

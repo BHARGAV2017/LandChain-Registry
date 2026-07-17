@@ -410,8 +410,6 @@ Use these in serious meetings — builds credibility.
 | System architecture (client) | [SYSTEM_DESIGN.md](./SYSTEM_DESIGN.md) |
 | Live demo setup | [DEMO_SETUP.md](./DEMO_SETUP.md) |
 | Demo script & sample files | [demo-data/DEMO_SCRIPT.md](./demo-data/DEMO_SCRIPT.md) |
-| Business / monetization (internal) | [learning-docs/BUSINESS_MODEL.md](./learning-docs/BUSINESS_MODEL.md) |
-| Post-quantum roadmap (internal) | [learning-docs/POST_QUANTUM_SECURITY.md](./learning-docs/POST_QUANTUM_SECURITY.md) |
 
 ---
 

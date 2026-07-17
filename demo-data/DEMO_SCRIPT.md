@@ -83,6 +83,6 @@ Hand them: `demo-data/documents/deed-of-sale-LP-DEMO-001.html` + architecture do
 |----------|--------|
 | Is this legally binding? | Demo on test chain; production needs jurisdiction + registrar partnership |
 | Cost? | ~$0.10–$2 per tx on Polygon vs thousands in legal fees |
-| Quantum safe? | Roadmap: Dilithium signatures — see POST_QUANTUM_SECURITY.md |
+| Quantum safe? | Roadmap: post-quantum signatures (e.g. Dilithium) for long-lived titles |
 | Why blockchain? | Immutable audit trail; no single point of tampering |
 | Data privacy? | Docs on IPFS; only hashes on chain |

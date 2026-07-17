@@ -7,11 +7,11 @@ proto/
 ├── frontend/           ← Web UI (React)
 ├── shared/             ← Contract address + ABI (auto-generated)
 ├── demo-data/          ← Sample docs/images for testing
-├── learning-docs/      ← Internal learning (not for clients)
 ├── docker-compose.yml  ← Postgres + IPFS containers
 └── *.md                ← Client docs at root
 ```
 
+Internal learning notes (`learning-docs/`) stay on the maintainer machine only and are gitignored.
 ---
 
 ## How the System Fits Together
@@ -131,19 +131,6 @@ Backend reads this for `/api/config`. Frontend gets contract info from the API.
 | `DEMO_SCRIPT.md` | 5-minute presentation script |
 | `README.md` | How to use demo files |
 | `seed-demo.mjs` | Optional script to auto-load demo parcels |
-
----
-
-## `learning-docs/` — Internal Only (Not for Clients)
-
-| File | Topic |
-|------|--------|
-| `SMART_CONTRACTS_EXPLAINED.md` | How smart contracts work |
-| `BLOCKCHAIN_SECURITY_EXPLAINED.md` | Security patterns |
-| `POST_QUANTUM_*.md` | Quantum-safe crypto |
-| `GLOSSARY_AND_SHORTFORMS.md` | Terms & abbreviations |
-| `BUSINESS_MODEL.md` | Monetization strategy |
-| `TECHNICAL_IMPLEMENTATION.md` | Deep implementation notes |
 
 ---
 

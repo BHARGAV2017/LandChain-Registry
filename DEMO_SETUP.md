@@ -161,7 +161,7 @@ React + MetaMask → Hardhat (8545) → LandRegistry.sol
 
 1. Run through demo flow above
 2. Show `SYSTEM_DESIGN.md` for enterprise architecture
-3. Mention PQC roadmap (`POST_QUANTUM_SECURITY.md`)
+3. Mention post-quantum / long-term security roadmap if asked
 4. Screen share or record with Loom
 
 ---
