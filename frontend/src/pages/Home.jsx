@@ -38,14 +38,16 @@ export default function Home() {
           and PropTech.
         </p>
         <div className="home-cta-row">
-          <button type="button" className="btn" onClick={handleSignIn}>
+          <Link to={`/verify/${DEMO_PARCEL}`} className="btn">
+            View sample
+          </Link>
+          <button type="button" className="btn secondary" onClick={handleSignIn}>
             Sign In
           </button>
-          <Link to={`/verify/${DEMO_PARCEL}`} className="btn secondary">
-            Verify a sample parcel
-          </Link>
         </div>
-        <p className="meta home-cta-note">No password. Wallet only for register or transfer.</p>
+        <p className="meta home-cta-note">
+          View sample = no wallet. Sign In = connect MetaMask to register or transfer.
+        </p>
       </section>
 
       <section className="card home-section">
@@ -366,24 +368,35 @@ export default function Home() {
 
       <section className="card home-section home-try">
         <h2>Try it</h2>
-        <p className="home-section-lead">Seeded parcels (after seed script):</p>
-        <div className="home-try-links">
-          <Link to={`/verify/${DEMO_PARCEL}`} className="try-chip">
-            <strong>{DEMO_PARCEL}</strong>
-            <span>history + docs</span>
-          </Link>
-          <Link to="/verify/LP-DEMO-002" className="try-chip">
-            <strong>LP-DEMO-002</strong>
-            <span>live transfer demo</span>
-          </Link>
-        </div>
-        <div className="home-cta-row">
-          <button type="button" className="btn" onClick={handleSignIn}>
-            Sign In to workspace
-          </button>
-          <Link to="/verify" className="btn secondary">
-            Open Verify
-          </Link>
+        <p className="home-section-lead">Pick one path:</p>
+
+        <div className="home-try-paths">
+          <div className="home-try-path">
+            <h3>Look only — no wallet</h3>
+            <p className="meta">Click a parcel to see ownership, docs, and on-chain data.</p>
+            <div className="home-try-links">
+              <Link to={`/verify/${DEMO_PARCEL}`} className="try-chip">
+                <strong>Verify LP-DEMO-001</strong>
+                <span>Delhi</span>
+              </Link>
+              <Link to="/verify/LP-DEMO-002" className="try-chip">
+                <strong>Verify LP-DEMO-002</strong>
+                <span>Gurugram</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="home-try-path">
+            <h3>Test yourself — wallet</h3>
+            <p className="meta">
+              Sign In, connect MetaMask (Polygon Amoy + test POL), then register or transfer.
+            </p>
+            <div className="home-cta-row">
+              <button type="button" className="btn" onClick={handleSignIn}>
+                Sign In
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </div>

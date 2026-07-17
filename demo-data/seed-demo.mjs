@@ -21,12 +21,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const API = process.env.API_URL || "http://localhost:3001";
 const RPC = process.env.BLOCKCHAIN_RPC_URL || "http://127.0.0.1:8545";
 
-# Hardhat default Account #0 private key (local demo only).
-# For Amoy: export OWNER_KEY=0xYourDeployerKey
+// Hardhat default Account #0 private key (local demo only).
+// For Amoy: OWNER_KEY=0xYourDeployerKey (never commit / never paste in chat)
 const OWNER_KEY =
   process.env.OWNER_KEY ||
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-const BUYER_ADDRESS = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
+const BUYER_ADDRESS =
+  process.env.BUYER_ADDRESS || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
+const SKIP_TRANSFER = process.env.SKIP_TRANSFER === "1";
 
 const PARCELS = [
   {
@@ -95,12 +97,22 @@ async function registerOnChain(wallet, prep, parcelId) {
   const contract = new ethers.Contract(deployment.contractAddress, deployment.abi, wallet);
   const parcelIdBytes32 = ethers.id(parcelId);
   const nonce = await wallet.provider.getTransactionCount(wallet.address, "latest");
-  const tx = await contract.registerLand(
+  const args = [
     parcelIdBytes32,
     hashToBytes32(prep.gpsHash),
     hashToBytes32(prep.metadataHash),
-    { nonce }
-  );
+  ];
+  const estimated = await contract.registerLand.estimateGas(...args);
+  const gasLimit = (estimated * 120n) / 100n;
+  // Amoy often requires ~25 gwei tip; keep max fee modest for faucet balances
+  const maxPriorityFeePerGas = ethers.parseUnits("25", "gwei");
+  const maxFeePerGas = ethers.parseUnits("40", "gwei");
+  const tx = await contract.registerLand(...args, {
+    nonce,
+    gasLimit,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+  });
   const receipt = await tx.wait();
   return { txHash: receipt.hash, blockNumber: receipt.blockNumber, parcelIdBytes32 };
 }
@@ -180,33 +192,39 @@ async function main() {
   }
 
   const firstId = PARCELS[0].parcelId;
-  console.log(`\nTransferring ${firstId} → buyer ${BUYER_ADDRESS}...`);
-  const verifyRes = await fetch(`${API}/api/land-parcels/verify/${firstId}`).then((r) => r.json());
-  const currentOwner = verifyRes.data?.ownerWallet?.toLowerCase();
-  if (currentOwner === BUYER_ADDRESS.toLowerCase()) {
-    console.log(`  ↷ already owned by buyer — skipping transfer`);
+  if (SKIP_TRANSFER) {
+    console.log(`\nSkipping transfer (SKIP_TRANSFER=1) — both parcels stay with owner`);
   } else {
-    const transfer = await transferParcel(wallet, firstId, BUYER_ADDRESS);
-    await fetch(`${API}/api/land-parcels/confirm-transfer`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        parcelId: firstId,
-        fromWallet: wallet.address,
-        toWallet: BUYER_ADDRESS,
-        txHash: transfer.txHash,
-      }),
-    });
-    console.log(`  ✓ Transfer tx: ${transfer.txHash}`);
+    console.log(`\nTransferring ${firstId} → buyer ${BUYER_ADDRESS}...`);
+    const verifyRes = await fetch(`${API}/api/land-parcels/verify/${firstId}`).then((r) =>
+      r.json()
+    );
+    const currentOwner = verifyRes.data?.ownerWallet?.toLowerCase();
+    if (currentOwner === BUYER_ADDRESS.toLowerCase()) {
+      console.log(`  ↷ already owned by buyer — skipping transfer`);
+    } else {
+      const transfer = await transferParcel(wallet, firstId, BUYER_ADDRESS);
+      await fetch(`${API}/api/land-parcels/confirm-transfer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          parcelId: firstId,
+          fromWallet: wallet.address,
+          toWallet: BUYER_ADDRESS,
+          txHash: transfer.txHash,
+        }),
+      });
+      console.log(`  ✓ Transfer tx: ${transfer.txHash}`);
+    }
   }
 
   console.log("\n--- Demo ready ---");
-  console.log("Open http://localhost:5173");
+  console.log(`API: ${API}`);
   console.log("Verify parcels:");
-  console.log("  LP-DEMO-001 (transferred to Account #1)");
-  console.log("  LP-DEMO-002 (still owned by Account #0)");
-  console.log("\nMetaMask Account #0:", wallet.address);
-  console.log("MetaMask Account #1:", BUYER_ADDRESS);
+  console.log(`  ${API.replace(/\/$/, "")}/api/land-parcels/verify/LP-DEMO-001`);
+  console.log(`  ${API.replace(/\/$/, "")}/api/land-parcels/verify/LP-DEMO-002`);
+  console.log("\nOwner wallet:", wallet.address);
+  if (!SKIP_TRANSFER) console.log("Buyer wallet:", BUYER_ADDRESS);
 }
 
 main().catch((err) => {

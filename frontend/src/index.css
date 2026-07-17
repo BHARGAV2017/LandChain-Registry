@@ -577,6 +577,38 @@ button.secondary {
   }
 }
 
+.home-try-paths {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 720px) {
+  .home-try-paths {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+    align-items: start;
+  }
+}
+
+.home-try-path h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: #1e3a5f;
+}
+
+.home-try-path .meta {
+  margin: 0 0 0.85rem;
+}
+
+.home-try-path .home-try-links {
+  margin-bottom: 0;
+}
+
+.home-try-path .home-cta-row {
+  margin-top: 0.25rem;
+}
+
 .home-try-links {
   display: flex;
   flex-wrap: wrap;
