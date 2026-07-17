@@ -373,7 +373,9 @@ export default function Home() {
         <div className="home-try-paths">
           <div className="home-try-path">
             <h3>Look only — no wallet</h3>
-            <p className="meta">Click a parcel to see ownership, docs, and on-chain data.</p>
+            <p className="meta">
+              Sample preview of the Verify UI (not a live chain record). No MetaMask needed.
+            </p>
             <div className="home-try-links">
               <Link to={`/verify/${DEMO_PARCEL}`} className="try-chip">
                 <strong>Verify LP-DEMO-001</strong>

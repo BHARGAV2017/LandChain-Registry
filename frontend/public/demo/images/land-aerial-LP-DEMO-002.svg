@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#c5e1a5"/>
+  <text x="400" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333333">Agricultural Land - LP-DEMO-002</text>
+  <text x="400" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#33691e">Village Sikandarpur, Gurugram | 1.02 hectares</text>
+  <rect x="100" y="100" width="600" height="400" fill="#7cb342" stroke="#33691e" stroke-width="3"/>
+  <line x1="100" y1="200" x2="700" y2="200" stroke="#558b2f" stroke-width="1" opacity="0.5"/>
+  <line x1="100" y1="300" x2="700" y2="300" stroke="#558b2f" stroke-width="1" opacity="0.5"/>
+  <line x1="250" y1="100" x2="250" y2="500" stroke="#558b2f" stroke-width="1" opacity="0.5"/>
+  <line x1="500" y1="100" x2="500" y2="500" stroke="#558b2f" stroke-width="1" opacity="0.5"/>
+  <rect x="620" y="380" width="50" height="80" fill="#5d4037"/>
+  <text x="645" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333333">Well</text>
+  <circle cx="400" cy="300" r="10" fill="#ff0000" opacity="0.8"/>
+  <text x="420" y="305" font-family="Arial, sans-serif" font-size="11" fill="#333333">28.4595, 77.0266</text>
+</svg>

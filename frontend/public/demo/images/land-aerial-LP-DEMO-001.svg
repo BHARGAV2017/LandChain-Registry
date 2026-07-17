@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="grass" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#3d7a37"/>
+      <circle cx="5" cy="5" r="1" fill="#4a9a42"/>
+      <circle cx="15" cy="12" r="1" fill="#2d6028"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="#87CEEB"/>
+  <text x="20" y="30" font-family="Arial, sans-serif" font-size="14" fill="#333">Aerial View - LP-DEMO-001 | Hauz Khas, New Delhi</text>
+  <rect x="50" y="80" width="700" height="480" fill="url(#grass)"/>
+  <rect x="200" y="180" width="400" height="250" fill="none" stroke="#ff0000" stroke-width="4" stroke-dasharray="12,6"/>
+  <text x="400" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" font-weight="bold">LP-DEMO-001</text>
+  <text x="400" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#ffffff">2,450 sq m</text>
+  <rect x="200" y="430" width="400" height="40" fill="#666666"/>
+  <text x="400" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#ffffff">12m Public Road</text>
+  <circle cx="220" cy="200" r="8" fill="#ffff00" stroke="#000000"/>
+  <text x="235" y="205" font-family="Arial, sans-serif" font-size="11" fill="#333333">GPS 28.6139, 77.2090</text>
+  <text x="20" y="580" font-family="Arial, sans-serif" font-size="10" fill="#555555">Demo image - Land Registry System | Not a certified survey</text>
+</svg>
