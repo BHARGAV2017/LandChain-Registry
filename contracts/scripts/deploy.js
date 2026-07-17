@@ -32,11 +32,14 @@ async function main() {
   console.log("Saved deployment.json to shared/");
 
   // Keep committed ABI in sync for cloud deploys (CONTRACT_ADDRESS env)
-  fs.writeFileSync(
-    path.join(sharedDir, "abi.json"),
-    JSON.stringify(artifact.abi, null, 2)
-  );
+  const abiJson = JSON.stringify(artifact.abi, null, 2);
+  fs.writeFileSync(path.join(sharedDir, "abi.json"), abiJson);
   console.log("Updated shared/abi.json");
+
+  // Also under backend/ so Render (rootDir=backend) always finds it
+  const backendAbi = path.join(__dirname, "..", "..", "backend", "abi.json");
+  fs.writeFileSync(backendAbi, abiJson);
+  console.log("Updated backend/abi.json");
 }
 
 main().catch((error) => {

@@ -10,9 +10,15 @@ let provider = null;
 let contract = null;
 
 function loadAbi() {
-  const abiPath = path.join(__dirname, "../../../shared/abi.json");
-  if (fs.existsSync(abiPath)) {
-    return JSON.parse(fs.readFileSync(abiPath, "utf8"));
+  // Prefer backend/abi.json (Render rootDir=backend), then repo shared/
+  const candidates = [
+    path.join(__dirname, "../../abi.json"),
+    path.join(__dirname, "../../../shared/abi.json"),
+  ];
+  for (const abiPath of candidates) {
+    if (fs.existsSync(abiPath)) {
+      return JSON.parse(fs.readFileSync(abiPath, "utf8"));
+    }
   }
   return null;
 }

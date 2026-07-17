@@ -132,7 +132,7 @@ git push origin main
 | `PINATA_JWT` | Pinata JWT |
 | `PINATA_GATEWAY` | `https://gateway.pinata.cloud` |
 | `BLOCKCHAIN_RPC_URL` | `https://rpc-amoy.polygon.technology` |
-| `CONTRACT_ADDRESS` | address from Step 4 |
+| `CONTRACT_ADDRESS` | `0xB4E489791fA3DA6be80990b6951C1aD9494Cb69c` |
 | `CHAIN_ID` | `80002` |
 | `CHAIN_NAME` | `Polygon Amoy` |
 | `CURRENCY_SYMBOL` | `POL` |
